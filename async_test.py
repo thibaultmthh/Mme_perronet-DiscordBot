@@ -70,6 +70,7 @@ async def corrige_fautes(message):
             pass
         elif mot in ["http","https", "```"]:
             break
+        elif mot[0] == "`"
         else:
             print(mot)
         #    await client.send_message(694926082763259954,str(message.author)+" a fait une faute en écrivant: "+mot)
