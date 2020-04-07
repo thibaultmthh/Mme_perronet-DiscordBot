@@ -16,6 +16,12 @@ fichier = open("data.txt", "r")
 liste_fautes=[]
 usefull = ["Username","UserID","Nbmots","Nbfautes","Timestamp"]
 
+with open("token.txt","r") as f:
+    token = f.readline()
+
+
+
+
 try:
     dfMessage = pd.read_csv("data/BDD_message.csv")
 except:
@@ -204,4 +210,4 @@ async def on_ready():
 
 
 
-client.run("Njk2MzAwMjE3OTAwODU5NDIy.XooXwA.asD2JevFDQ_U1YvTl-U3H4Y3Onk")
+client.run(token)
