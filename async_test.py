@@ -114,6 +114,7 @@ async def print_leaderboard_loop(h_in_past=24):
     if time.localtime().tm_hour != 23 or last_leaderboard == time.localtime().tm_mday:
     #if 1:
         affiche = False
+        print("non")
     else:
         affiche = True
     print("pasnon ")
@@ -187,9 +188,10 @@ async def print_leaderboard_loop(h_in_past=24):
 
 
     channel = client.get_channel(689460081766694991)
-
-    print(text)
+    print(affiche)
     if affiche:
+        print(text)
+
         await channel.send(text)
 
 
