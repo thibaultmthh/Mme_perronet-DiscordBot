@@ -209,5 +209,5 @@ async def on_ready():
 
 
 
-
-client.run(token)
+print("EE",token.replace("\n",""),"EE")
+client.run(token.replace("\n",""))
