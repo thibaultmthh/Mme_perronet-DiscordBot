@@ -18,6 +18,12 @@ fichier = open("data.txt", "r")
 liste_fautes=[]
 usefull = ["Username","UserID","Nbmots","Nbfautes","Timestamp"]
 
+whitelite_chanel = []
+with open("except_channel.txt") as f:
+    for x in f.readlines():
+        whitelite_chanel.append(int(x.replace("\n","")))
+
+
 with open("token.txt","r") as f:
     token = f.readline()
 
@@ -186,7 +192,7 @@ async def on_message(message):
     if message.content == "statut":
         print("changement de statut")
         await client.change_presence(activity=discord.Game(name='à corriger des copies'))
-    elif message.channel.id == 694926082763259954 or message.channel.id == 696695647310446633:
+    elif message.channel.id in whitelite_chanel:
         print("pass")
     else:
         await corrige_fautes(message)
@@ -213,5 +219,4 @@ async def on_ready():
 
 
 
-print("EE",token.replace("\n",""),"EE")
 client.run(token.replace("\n",""))

@@ -2,3 +2,4 @@ data/*
 exploitation.py
 test.py
 token.txt
+except_channel.txt
