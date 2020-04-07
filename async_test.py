@@ -17,7 +17,7 @@ liste_mots = [" ",""]
 fichier = open("data.txt", "r")
 liste_fautes=[]
 usefull = ["Username","UserID","Nbmots","Nbfautes","Timestamp"]
-
+last_leaderboard = time.localtime().tm_mday - 1
 whitelite_chanel = []
 with open("except_channel.txt") as f:
     for x in f.readlines():
@@ -105,12 +105,19 @@ async def corrige_fautes(message):
             await message.add_reaction(b)
 
 
-@tasks.loop(minutes = 5)
+@tasks.loop(minutes = 2 )
 async def print_leaderboard_loop(h_in_past=24):
-    if time.localtime().tm_hour != 22 or time.localtime().tm_hour != 10:
-        return
+    global last_leaderboard
+    print(time.localtime().tm_hour)
+    affiche = True
 
-
+    if time.localtime().tm_hour != 23 or last_leaderboard == time.localtime().tm_mday:
+    #if 1:
+        affiche = False
+    else:
+        affiche = True
+    print("pasnon ")
+    last_leaderboard = time.localtime().tm_mday
     timeMin = time.time()-(60*60*h_in_past)
     dfMessageDelta = dfMessage[dfMessage["Timestamp"] > timeMin]
     dfResults = pd.DataFrame({"Username":[],"NbmotMoyen":[],"MotsFaux":[],"NbMessages":[]})
@@ -181,8 +188,9 @@ async def print_leaderboard_loop(h_in_past=24):
 
     channel = client.get_channel(689460081766694991)
 
-
-    await channel.send(text)
+    print(text)
+    if affiche:
+        await channel.send(text)
 
 
 @client.event
