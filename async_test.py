@@ -111,9 +111,11 @@ async def print_leaderboard_loop(h_in_past=24):
     print(time.localtime().tm_hour)
     affiche = True
 
-    if time.localtime().tm_hour != 23 or last_leaderboard == time.localtime().tm_mday:
+    if time.localtime().tm_hour != 00 or last_leaderboard == time.localtime().tm_mday:
     #if 1:
+
         affiche = False
+        print(time.localtime().tm_hour, "ss", time.localtime().tm_mday)
         print("non")
     else:
         affiche = True
