@@ -17,7 +17,7 @@ liste_mots = [" ",""]
 fichier = open("data.txt", "r")
 liste_fautes=[]
 usefull = ["Username","UserID","Nbmots","Nbfautes","Timestamp"]
-last_leaderboard = time.localtime().tm_mday - 1
+last_leaderboard = (time.localtime().tm_mday - 1)
 whitelite_chanel = []
 with open("except_channel.txt") as f:
     for x in f.readlines():
@@ -37,7 +37,7 @@ except:
     dfMessage.to_csv('data/BDD_message.csv')
 
 for line in fichier.readlines():
-    liste_mots.append(line.strip())
+    liste_mots.append(line.strip().lower())
 
 
 def beautify_text(text):
@@ -111,7 +111,7 @@ async def print_leaderboard_loop(h_in_past=24):
     print(time.localtime().tm_hour)
     affiche = True
 
-    if time.localtime().tm_hour != 00 or last_leaderboard == time.localtime().tm_mday:
+    if time.localtime().tm_hour != 21 or last_leaderboard == time.localtime().tm_mday:
     #if 1:
 
         affiche = False
