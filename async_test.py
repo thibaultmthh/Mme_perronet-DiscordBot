@@ -68,6 +68,11 @@ async def corrige_fautes(message):
     d = 0
     print(message_txt)
     print("Message de : {}, avec {} mots".format(message.author.name, str(len(message_txt))))
+
+    for index,z in enumerate(message_txt):
+        if len(z) == 0:
+            del message_txt[index]
+
     for mot in message_txt:
         mot.replace(" ","")
         if mot in ["http","https", "```"]:
