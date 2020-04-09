@@ -66,26 +66,24 @@ async def corrige_fautes(message):
 
     i = 0
     d = 0
-<<<<<<< HEAD
-    print()
+    print(message_txt)
     print("Message de : {}, avec {} mots".format(message.author.name, str(len(message_txt))))
-=======
-    print("Message de : {}, avec {} mots".format(message.author.name), len(message_txt))
->>>>>>> 3866282e00daa06498a238046f82d85e442d4ad1
     for mot in message_txt:
         mot.replace(" ","")
-        if mot in liste_mots:
+        if mot in ["http","https", "```"]:
+            print("It's a link or code")
+            break
+        if mot[0] == "`":
+            print("It's code")
+            break
+        elif mot in liste_mots:
             pass
         elif mot[0].lower() != mot[0]:
             pass
         elif len(mot) <2:
             pass
-        elif mot in ["http","https", "```"]:
-            print("It's a link or code")
-            break
-        elif mot[0] == "`":
-            print("It's code")
-            break
+
+
         else:
             print(mot)
         #    await client.send_message(694926082763259954,str(message.author)+" a fait une faute en écrivant: "+mot)
