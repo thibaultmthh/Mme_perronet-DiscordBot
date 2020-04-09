@@ -25,7 +25,7 @@ with open("except_channel.txt") as f:
 
 
 with open("token.txt","r") as f:
-    token = f.readline()
+    token = f.readline().replace("\n","")
 
 
 
@@ -65,7 +65,7 @@ async def corrige_fautes(message):
 
     i = 0
     d = 0
-    print("------")
+    print("Message de : {}, avec {} mots".format(message.author.name), len(message_txt))
     for mot in message_txt:
         mot.replace(" ","")
         if mot in liste_mots:
@@ -75,8 +75,10 @@ async def corrige_fautes(message):
         elif len(mot) <2:
             pass
         elif mot in ["http","https", "```"]:
+            print("It's a link or code")
             break
         elif mot[0] == "`":
+            print("It's code")
             break
         else:
             print(mot)
@@ -103,23 +105,20 @@ async def corrige_fautes(message):
         for e in i:
             b = emojis_dict[e]
             await message.add_reaction(b)
+    print("--------")
 
 
 @tasks.loop(minutes = 2 )
 async def print_leaderboard_loop(h_in_past=24):
     global last_leaderboard
-    print(time.localtime().tm_hour)
     affiche = True
 
     if time.localtime().tm_hour != 21 or last_leaderboard == time.localtime().tm_mday:
     #if 1:
 
         affiche = False
-        print(time.localtime().tm_hour, "ss", time.localtime().tm_mday)
-        print("non")
     else:
         affiche = True
-    print("pasnon ")
     last_leaderboard = time.localtime().tm_mday
     timeMin = time.time()-(60*60*h_in_past)
     dfMessageDelta = dfMessage[dfMessage["Timestamp"] > timeMin]
@@ -131,16 +130,9 @@ async def print_leaderboard_loop(h_in_past=24):
         nombre_mot_moyen = dfMessageDelta["Nbmots"][mask].mean()
         nombre_fautes_moyen = dfMessageDelta["Nbfautes"][mask].mean()
         nombre_message = len(dfMessageDelta[mask])
-        print("------")
-        print(username)
         nb_mot_moyen = round(nombre_mot_moyen,1)
-        print("nb mot moyen : ",nb_mot_moyen)
         mots_faut = round(nombre_fautes_moyen/nombre_mot_moyen*100,2)
-        print("Mots faux : ", mots_faut , "%")
-        print("nb messages : ", nombre_message)
         dfResults = dfResults.append({"Username":username,"NbmotMoyen":nb_mot_moyen,"MotsFaux":mots_faut,"NbMessages":nombre_message}, ignore_index=True)
-
-
 
     total_mots = dfMessageDelta["Nbmots"].sum()
     if total_mots == 0:
@@ -190,7 +182,6 @@ async def print_leaderboard_loop(h_in_past=24):
 
 
     channel = client.get_channel(689460081766694991)
-    print(affiche)
     if affiche:
         print(text)
 
@@ -205,7 +196,7 @@ async def on_message(message):
         print("changement de statut")
         await client.change_presence(activity=discord.Game(name='à corriger des copies'))
     elif message.channel.id in whitelite_chanel:
-        print("pass")
+        pass
     else:
         await corrige_fautes(message)
 #    if message.author.id == 323486943331483660:
@@ -224,11 +215,11 @@ async def on_message(message):
 async def on_ready():
     print('Logged in as')
     print(client.user.name)
-    print(client.user.id)
+    print("at {}".format(time.localtime()))
     print_leaderboard_loop.start()
     print('------')
 
 
 
 
-client.run(token.replace("\n",""))
+client.run(token)
