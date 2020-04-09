@@ -66,8 +66,12 @@ async def corrige_fautes(message):
 
     i = 0
     d = 0
+<<<<<<< HEAD
     print()
     print("Message de : {}, avec {} mots".format(message.author.name, str(len(message_txt))))
+=======
+    print("Message de : {}, avec {} mots".format(message.author.name), len(message_txt))
+>>>>>>> 3866282e00daa06498a238046f82d85e442d4ad1
     for mot in message_txt:
         mot.replace(" ","")
         if mot in liste_mots:
