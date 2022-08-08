@@ -11,3 +11,7 @@ past you token
 and create a folder named data 
 
 
+
+
+## Why 
+Created during the french lockdown, to have fun with my friends on discord, name is according a french teacher i had 
